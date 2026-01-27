@@ -1,0 +1,100 @@
+<% layout("/layouts/boilerplate") %>
+    <!-- <div class="row mt-3">
+        <div class="col-8 offset-2">
+            <h1 class="col-8 offset-2">school registration page</h1>
+            <form method="post" action="/schoolRegistration" novalidate class="needs-validation">
+                <div class="mb-3">
+                    <label for="schoolName" class="form-label">School Name</label>
+                    <input type="text" name="schoolName" id="schoolName" class="form-control " required>
+                    <div class="valid-feedback">
+                        Looks good!
+                    </div>
+                </div> -->
+<div class="row mt-4">
+  <div class="col-lg-8 offset-lg-2">
+    <div class="card shadow-lg rounded-3 border-0">
+      <div class="card-body p-4">
+        <h2 class="text-center mb-4 text-primary fw-bold">School Registration</h2>
+        <form method="post" action="/schoolRegistration" novalidate class="needs-validation">
+
+          <!-- School Info -->
+          <div class="mb-3">
+            <label for="schoolName" class="form-label">School Name</label>
+            <input type="text" name="name" id="schoolName" class="form-control" required>
+            <div class="invalid-feedback">Please provide a valid school name.</div>
+          </div>
+
+       
+
+          <div class="mb-3">
+            <label for="phoneNumber" class="form-label">Phone Number</label>
+            <input type="number" name="phoneNumber" id="phoneNumber" class="form-control" required>
+            <div class="invalid-feedback">Please provide a valid phone number.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="upiId" class="form-label">UPI ID</label>
+            <input type="text" name="upiId" id="upiId" class="form-control" required>
+            <div class="invalid-feedback">Please provide a UPI ID.</div>
+          </div>
+
+          <div class="mb-3">
+            <label for="hostelFee" class="form-label">Hostel Fee</label>
+            <input type="number" name="hostelFee" id="hostelFee" class="form-control" required>
+            <div class="invalid-feedback">Please provide hostel fee.</div>
+          </div>
+
+        
+
+          <!-- Classes Section -->
+          <h4 class="mt-4 mb-3 text-success">Classes Offered</h4>
+          <div id="classesContainer"></div>
+          <button type="button" class="btn btn-outline-primary btn-sm" id="addClassBtn">
+            + Add Class
+          </button>
+
+          <!-- Submit -->
+          <div class="d-grid mt-4">
+            <button type="submit" class="btn btn-primary btn-lg">Register School</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const addClassBtn = document.getElementById("addClassBtn");
+  const classesContainer = document.getElementById("classesContainer");
+
+  addClassBtn.addEventListener("click", () => {
+    const classForm = document.createElement("div");
+    classForm.classList.add("card", "p-3", "mb-3", "shadow-sm", "bg-light", "position-relative");
+
+    classForm.innerHTML = `
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Class</label>
+          <input type="text" name="classId[class][]" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Section</label>
+          <input type="text" name="classId[section][]" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Academic Fee</label>
+          <input type="number" name="classId[acadmicFee][]" class="form-control" required>
+        </div>
+      </div>
+      <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 removeClassBtn">✕</button>
+    `;
+
+    classForm.querySelector(".removeClassBtn").addEventListener("click", () => {
+      classForm.remove();
+    });
+
+    classesContainer.appendChild(classForm);
+  });
+</script>
+
+

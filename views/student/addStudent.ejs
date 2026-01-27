@@ -1,0 +1,262 @@
+<% layout("/layouts/boilerplate") %>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f8f9fa;
+    }
+
+    #sidebar {
+        background-color: #1e1e1e;
+        border-right: 1px solid #2c2c2c;
+        height: 100vh;
+    }
+
+    #sidebar h2 {
+        font-weight: bold;
+        padding-top: 1rem;
+        padding-left: 1rem;
+        margin-bottom: 30px;
+        color: #fff;
+    }
+
+    .nav-item a div {
+        color: white;
+    }
+
+    #sidebar ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    #sidebar .nav-link {
+        display: flex;
+        align-items: center;
+        padding: 0.8rem 1rem;
+        border-radius: 0.5rem;
+        color: #ccc;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    #sidebar .nav-link:hover,
+    #sidebar .nav-link.active {
+        background-color: #2c5234;
+        color: #fff;
+    }
+
+    #sidebar .nav-link i {
+        margin-right: 10px;
+    }
+
+    /* Right panel */
+    .main-content {
+        flex-grow: 1;
+        padding: 30px;
+        background-color: #fff;
+        min-height: 100vh;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .btn-green {
+        background-color: #2c5234;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+    }
+
+    .btn-dark {
+        background-color: #333;
+        color: #fff;
+        border: none;
+        padding: 8px 16px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin-right: 10px;
+    }
+
+    .btn-dark:hover {
+        background-color: #111;
+    }
+
+    /* Card */
+    .card {
+        background: #f8f9fa;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        margin-top: 20px;
+    }
+
+    .card h3 {
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+
+    .form-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 15px;
+        margin-bottom: 15px;
+    }
+
+    .form-grid input,
+    .form-grid select {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+        width: 100%;
+    }
+
+    .form-actions {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+</style>
+
+<div class="d-flex">
+    <!-- Sidebar -->
+    <div id="sidebar" class="p-3" style="width: 18rem">
+        <h2>Alter</h2>
+        <ul class="nav flex-column mt-2">
+            <li class="nav-item">
+                <a href="/dashboard" class="nav-link mt-4">
+                     <div>  <i class="bi bi-speedometer2"></i> Dashboard</div> 
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/students" class="nav-link active">
+                    <div><i class="bi bi-people"></i> Students</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/fees" class="nav-link">
+                    <div><i class="bi bi-cash-stack"></i> Fees</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/account" class="nav-link">
+                    <div><i class="bi bi-person-circle"></i> Account Details</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/billing" class="nav-link">
+                    <div><i class="bi bi-receipt"></i> Billing</div>
+                </a>
+            </li>
+            <li class="nav-item">
+                <a href="/settings" class="nav-link">
+                    <div><i class="bi bi-gear"></i> Settings</div>
+                </a>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Right Panel -->
+    <div class="main-content">
+        <div class="top-bar">
+            <div>
+                <h2>Student</h2>
+                <p>Monitor and manage your Student.</p>
+            </div>
+            <button class="btn-green">+ Add Student</button>
+        </div>
+
+        <!-- Filters -->
+        <div class="filters">
+            <input type="text" placeholder="Search by Name">
+            <select>
+                <option>Class 1 (A)</option>
+                <option>Class 2 (B)</option>
+            </select>
+            <select>
+                <option>Jan</option>
+                <option>Feb</option>
+                <option>Mar</option>
+            </select>
+        </div>
+
+        <!-- Card -->
+        <div class="card">
+            <h3>Add Student</h3>
+
+            <!-- FORM -->
+            <form id="studentForm" action="/addStudent" method="POST">
+                <div id="student-rows">
+                    <div class="form-grid">
+                        <input type="number" placeholder="Roll Number" name="rollNumber[]">
+                        <input type="text" placeholder="Name" name="name[]">
+                        <input type="text" placeholder="Father's Name" name="father_name[]">
+                        <input type="number" placeholder="Phone Number" name="phoneNumber[]">
+                        <select name="hostel[]">
+                            <option value="0">Select Hostel</option>
+                            <option value="yes">YES</option>
+                            <option value="no">NO</option>
+                           
+                           
+                        </select>
+                       
+                        <select name="classId[]">
+                            <option value="0">Select Class</option>
+                            <%for(let c of school.classId){ %>
+                            <option value=<%=c._id %>>Class <%=c.class %> (<%=c.section %>)</option>
+                           
+                             <%}%>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="btn-dark" onclick="addRow()">+ Add Cell</button>
+                    <button type="submit" class="btn-green">Save</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<script>
+    function addRow() {
+        const container = document.getElementById("student-rows");
+
+        const row = document.createElement("div");
+        row.className = "form-grid";
+
+        row.innerHTML = `
+            <input type="number" placeholder="Roll Number" name="rollNumber[]">
+            <input type="text" placeholder="Name" name="name[]">
+            <input type="text" placeholder="Father's Name" name="father_name[]">
+            <input type="number" placeholder="Phone Number" name="phoneNumber[]">
+             <select name="hostel[]">
+                            
+                            <option value="0">Select Hostel</option>
+                            <option value="yes">YES</option>
+                            <option value="no">NO</option>
+                           
+                           
+                        </select>
+            <select name="classId[]">
+                <option value="0">Select Class</option>
+                  <%for(let c of school.classId){ %>
+                            <option value=<%=c._id %>>Class <%=c.class %> (<%=c.section %>)</option>
+                           
+                             <%}%>
+            </select>
+        `;
+
+        container.appendChild(row);
+    }
+</script>

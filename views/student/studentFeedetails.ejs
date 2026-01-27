@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <title>School Fees</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+    }
+
+    .card {
+      background: #fff;
+      border-radius: 15px;
+      padding: 20px;
+      max-width: 400px;
+      margin: auto;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .profile {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .profile img {
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+    }
+
+    .profile h3 {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .profile p {
+      margin: 0;
+      font-size: 14px;
+      color: #555;
+    }
+
+    h2 {
+      font-size: 18px;
+      margin-top: 20px;
+    }
+
+    .fees-box {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin: 20px 0;
+    }
+
+    .fees-box input {
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      border-radius: 10px;
+      box-shadow: 0 3px 5px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 120px;
+    }
+
+    .pay-btn {
+      padding: 10px 20px;
+      background: #556b2f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      display: inline-block;
+      text-decoration: none;
+    }
+
+    .upload-box {
+      margin-top: 20px;
+      text-align: center;
+    }
+
+    .upload-box input[type="file"] {
+      margin: 10px 0;
+    }
+
+    .upload-btn {
+      padding: 10px 20px;
+      background: #556b2f;
+      color: #fff;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    .history {
+      margin-top: 20px;
+    }
+
+    .history table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .history th,
+    .history td {
+      text-align: left;
+      padding: 8px;
+      font-size: 14px;
+    }
+
+    .history th {
+      background: #eee;
+    }
+
+    .paid {
+      color: green;
+      font-weight: bold;
+    }
+
+    .pending {
+      color: gray;
+      font-weight: bold;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="card">
+    <!-- Profile -->
+    <div class="profile">
+      <img src="https://via.placeholder.com/50" alt="Profile">
+      <div>
+        <h3><%= school.name %></h3>
+        <p><%= student.name %> — <%= student.classId.class %> (<%= student.classId.section %>)</p>
+      </div>
+    </div>
+
+    <!-- Fees -->
+    <h2>School Fees</h2>
+    <div class="fees-box">
+      <span>Fees</span>
+      <input type="number" value="<%= school.hostelFee + student.classId.acadmicFee %>" readonly>
+    </div>
+    <div style="text-align:center;">
+      <a href="upi://pay?pa=<%=school.upiId%>&pn=ReceiverName&tr=TxnRef123&tn=Order%20Payment&am=<%= school.hostelFee + student.classId.acadmicFee %>&cu=INR"
+        class="pay-btn">Pay</a>
+    </div>
+
+    <!-- Upload Section -->
+    <div class="upload-box">
+      <p>UPI Transaction thlalak upload na</p>
+      <form action="/upload-transaction/<%=student._id%>/<%=school._id%>/<%= school.hostelFee + student.classId.acadmicFee %>" method="POST" enctype="multipart/form-data">
+        <input type="file" name="transactionImage" required>
+        <br>
+        <button type="submit" class="upload-btn">Upload</button>
+      </form>
+    </div>
+
+    <!-- History -->
+    <div class="history">
+      <h2>History</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Sl</th>
+            <th>Months</th>
+            <th>Transaction ID</th>
+            <th>Date</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% transaction.forEach((t, index) => { %>
+            <tr>
+              <td><%= index + 1 %>.</td>
+              <td><%= t.month || '-' %></td>
+              <td><%= t.UTR %></td>
+              <td><%= new Date(t.date).toLocaleDateString("en-GB") %></td>
+              <td class="<%= t.status.toLowerCase() %>"><%= t.status %></td>
+            </tr>
+          <% }) %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</body>
+</html>
