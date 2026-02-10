@@ -1,0 +1,141 @@
+<style>
+  /* Sidebar base */
+  #sidebar {
+    background-color: #1e1e1e;
+    border-right: 1px solid #2c2c2c;
+    height: 100vh;
+  }
+
+  #sidebar h2 {
+    font-weight: bold;
+    padding-top: 1rem;
+    padding-left: 1rem;
+    margin-bottom: 30px;
+    color: #fff;
+  }
+
+  #sidebar ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+
+  #sidebar .nav-link {
+    display: flex;
+    align-items: center;
+    padding: 0.8rem 1rem;
+    border-radius: 0.5rem;
+    color: #ccc;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+  }
+
+  #sidebar .nav-link i {
+    margin-right: 10px;
+  }
+
+  #sidebar .nav-link:hover,
+  #sidebar .nav-link.active {
+    background-color: #2c5234;
+    color: #fff;
+  }
+
+  /* Right panel helpers (used by pages) */
+  .main-content {
+    flex-grow: 1;
+    padding: 30px;
+    background-color: #fff;
+    min-height: 100vh;
+  }
+
+  .top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .btn-green {
+    background-color: #2c5234;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+  }
+
+  .filters {
+    display: flex;
+    gap: 15px;
+    margin: 20px 0;
+    align-items: center;
+  }
+
+  .filters input,
+  .filters select {
+    padding: 6px 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  table th,
+  table td {
+    padding: 12px;
+    border-bottom: 1px solid #eee;
+    text-align: left;
+  }
+
+  table th {
+    background: #f1f1f1;
+    font-weight: 600;
+  }
+
+  .edit-link {
+    color: #2c5234;
+    font-weight: bold;
+    cursor: pointer;
+  }
+</style>
+
+<div id="sidebar" class="p-3" style="width:18rem;">
+  <h2>Alter</h2>
+
+  <ul class="nav flex-column mt-4">
+    <li class="nav-item">
+      <a href="/dashboard" class="nav-link">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="/viewStudent" class="nav-link">
+        <i class="bi bi-people"></i> Students
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="/fees" class="nav-link">
+        <i class="bi bi-cash-stack"></i> Fees
+      </a>
+    </li>
+
+    <li class="nav-item">
+      <a href="/classes/add" class="nav-link">
+        <i class="bi bi-gear"></i> Add Classes
+      </a>
+    </li>
+
+    <li class="nav-item mt-4">
+      <a href="/logout" class="nav-link text-danger">
+        <i class="bi bi-box-arrow-right"></i> Logout
+      </a>
+    </li>
+  </ul>
+</div>

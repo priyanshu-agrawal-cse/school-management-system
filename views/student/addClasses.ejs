@@ -1,0 +1,56 @@
+<% layout("/layouts/boilerplate") %>
+
+<div class="row mt-4">
+  <div class="col-lg-8 offset-lg-2">
+    <div class="card shadow-lg border-0">
+      <div class="card-body p-4">
+        <h3 class="text-center text-success fw-bold mb-4">Add Classes</h3>
+
+        <form method="POST" action="/classes/add" class="needs-validation" novalidate>
+
+          <div id="classesContainer"></div>
+
+          <button type="button" class="btn btn-outline-primary btn-sm mb-3" id="addClassBtn">
+            + Add Class
+          </button>
+
+          <div class="d-grid">
+            <button class="btn btn-success btn-lg">Save Classes</button>
+          </div>
+        </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  const addClassBtn = document.getElementById("addClassBtn");
+  const classesContainer = document.getElementById("classesContainer");
+
+  addClassBtn.addEventListener("click", () => {
+    const div = document.createElement("div");
+    div.className = "card p-3 mb-3 bg-light shadow-sm position-relative";
+
+    div.innerHTML = `
+      <div class="row g-3">
+        <div class="col-md-4">
+          <label class="form-label">Class</label>
+          <input type="text" name="classId[class][]" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Section</label>
+          <input type="text" name="classId[section][]" class="form-control" required>
+        </div>
+        <div class="col-md-4">
+          <label class="form-label">Academic Fee</label>
+          <input type="number" name="classId[acadmicFee][]" class="form-control" required>
+        </div>
+      </div>
+      <button type="button" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-2 remove">✕</button>
+    `;
+
+    div.querySelector(".remove").onclick = () => div.remove();
+    classesContainer.appendChild(div);
+  });
+</script>

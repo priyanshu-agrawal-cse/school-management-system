@@ -16,8 +16,15 @@ const MongoStore = require('connect-mongo');
 const QRCode = require("qrcode");
 const Tesseract = require("tesseract.js");
 const multer = require("multer");
+const pdfParse = require("pdf-parse");
 
 const upload = multer({ storage: multer.memoryStorage() });
+
+
+
+
+
+
 
 
 const db_url = "mongodb://127.0.0.1:27017/chruch"
@@ -105,7 +112,7 @@ app.post("/signup", async (req, res) => {
     const ru = await User.register(newUser, password); // Passport-local-mongoose
 
     console.log("New user registered:", ru);
-        req.session.schoolId = req.user._id;
+        req.session.schoolId = ru._id;
 
     // ✅ Store user in session (passport handles this if using req.login)
     req.login(ru, (err) => {
@@ -201,7 +208,8 @@ const rawClasses = req.body.classId;
 
     await school.save();
 
-    res.status(201).send("School registered successfully!");
+    // res.status(201).send("School registered successfully!");
+    res.redirect("/dashboard");
 
   } catch (err) {
     console.error(err);
@@ -221,11 +229,39 @@ app.get("/dashboard",(req,res)=>{
 
 
 
-app.get("/viewStudent",async (req,res)=>{
-  const student = await Student.find().populate("classId");
-    // console.log("User found:", student);
-  res.render("student/viewStudent.ejs",{student});
-})
+app.get("/viewStudent", async (req, res) => {
+  try {
+    // 1️⃣ Get logged-in user
+    const schoolId = req.session.schoolId || req.session.school?._id;
+
+    if (!schoolId) {
+      return res.redirect("/login");
+    }
+
+    // 2️⃣ Find school of this user
+    const school = await School.findOne({ user: schoolId }).populate("classId");
+
+    if (!school) {
+      return res.status(404).send("School not found");
+    }
+
+    // 3️⃣ Get all class IDs of this school
+    const classIds = school.classId.map(cls => cls._id);
+
+    // 4️⃣ Find students ONLY from these classes
+    const students = await Student.find({
+      classId: { $in: classIds }
+    }).populate("classId");
+
+    // 5️⃣ Render students of this school only
+    res.render("student/viewStudent.ejs", { student: students });
+
+  } catch (err) {
+    console.error("Error in /viewStudent:", err);
+    res.status(500).send("Server error");
+  }
+});
+
 
 
 
@@ -434,6 +470,54 @@ app.post(
 );
 
 
+//verifying fees
+app.post(
+  "/verify-bank-statement",
+  upload.single("bankStatement"),
+  async (req, res) => {
+    try {
+      // 1️⃣ Validate file
+      if (!req.file || !req.file.buffer) {
+        return res.status(400).send("No bank statement uploaded");
+      }
+
+      // 2️⃣ Parse PDF
+      const pdfData = await pdfParse(req.file.buffer);
+      const text = pdfData.text;
+
+      // 3️⃣ Extract UTR numbers (10–12 digits)
+      const utrs = text.match(/\b\d{10,12}\b/g);
+
+      if (!utrs || utrs.length === 0) {
+        return res.status(400).send("No transaction IDs found in bank statement");
+      }
+
+      // 4️⃣ Remove duplicates
+      const uniqueUTRs = [...new Set(utrs.map(Number))];
+
+      // 5️⃣ Update matching transactions
+      const result = await Transaction.updateMany(
+        { UTR: { $in: uniqueUTRs } },
+        { $set: { status: "Approved" } }
+      );
+
+      console.log("Approved transactions:", result.modifiedCount);
+
+      // 6️⃣ Response
+      // res.send(`
+      //   <h3>Verification Complete</h3>
+      //   <p>Approved Transactions: ${result.modifiedCount}</p>
+      // `);/
+      res.redirect("/fees");
+    } catch (err) {
+      console.error("Bank statement verification error:", err);
+      res.status(500).send("Server error during verification");
+    }
+  }
+);
+
+
+
 
 
 //fees route
@@ -512,12 +596,81 @@ app.post(
 });
 
 
+//logout
+app.get("/logout", (req, res, next) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    req.session.destroy(() => {
+      res.redirect("/login");
+    });
+  });
+});
+
+//add classes
+app.get("/classes/add", async (req, res) => {
+  if (!req.isAuthenticated()) return res.redirect("/login");
+
+  const school = await School.findOne({ user: req.user._id });
+
+  if (!school) return res.redirect("/schoolRegistration");
+
+  res.render("student/addClasses.ejs");
+});
+
+
+app.post("/classes/add", async (req, res) => {
+  try {
+    if (!req.isAuthenticated()) return res.redirect("/login");
+
+    const school = await School.findOne({ user: req.user._id });
+    if (!school) return res.redirect("/schoolRegistration");
+
+    const raw = req.body.classId;
+    let classesToCreate = [];
+
+    if (Array.isArray(raw.class)) {
+      for (let i = 0; i < raw.class.length; i++) {
+        classesToCreate.push({
+          class: raw.class[i],
+          section: raw.section[i],
+          acadmicFee: raw.acadmicFee[i],
+        });
+      }
+    } else {
+      classesToCreate.push({
+        class: raw.class,
+        section: raw.section,
+        acadmicFee: raw.acadmicFee,
+      });
+    }
+
+    // 1️⃣ Create classes
+    const createdClasses = await Classes.insertMany(classesToCreate);
+
+    // 2️⃣ Push class IDs into school
+    await School.findByIdAndUpdate(
+      school._id,
+      { $push: { classId: { $each: createdClasses.map(c => c._id) } } }
+    );
+
+    res.redirect("/fees"); // or /dashboard
+  } catch (err) {
+    console.error("Add classes error:", err);
+    res.status(500).send("Failed to add classes");
+  }
+});
+
+
 
 app.get("/", (req, res) => {
+  res.redirect("/login")
   res.send("hello ");
 })
 
 
 app.listen(8080, '0.0.0.0', () => {
   console.log("Server is running");
+  console.log("pdfParse resolved type:", typeof pdfParse);
 });
