@@ -1,0 +1,50 @@
+<% layout("/layouts/schoolLayout") %>
+<div class="app-wrapper">
+    <%- include("../includes/sideNav.ejs", {currentPage: 'notices'}) %>
+    <div class="main-content">
+    <div class="header d-flex justify-content-between align-items-center">
+        <div>
+            <h2>School Notices</h2>
+            <p>Manage announcements and notifications</p>
+        </div>
+        <a href="/notices/add" class="btn btn-primary rounded-pill shadow-sm">
+            <i class="bi bi-plus-lg me-2"></i>New Notice
+        </a>
+    </div>
+
+    <div class="row g-4 mt-2">
+        <% if(notices && notices.length > 0) { %>
+            <% for(let notice of notices) { %>
+                <div class="col-md-6">
+                    <div class="card border-0 shadow-sm rounded-4 h-100 overflow-hidden">
+                        <div class="card-body p-4">
+                            <div class="d-flex justify-content-between align-items-start mb-3">
+                                <h5 class="fw-bold text-dark m-0"><%= notice.title %></h5>
+                                <span class="badge rounded-pill bg-primary-subtle text-primary px-3"><%= notice.target %></span>
+                            </div>
+                            <p class="text-muted small mb-4"><%= notice.content %></p>
+                            <div class="d-flex align-items-center mt-auto">
+                                <div class="bg-light rounded-circle p-2 me-3">
+                                    <i class="bi bi-calendar3 text-primary"></i>
+                                </div>
+                                <div class="small">
+                                    <div class="text-dark fw-semibold"><%= notice.createdAt.toDateString() %></div>
+                                    <div class="text-muted">Posted Date</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="text-center py-5">
+                <div class="display-1 text-muted mb-4 opacity-25">
+                    <i class="bi bi-megaphone"></i>
+                </div>
+                <h4 class="text-muted">No notices posted yet</h4>
+                <p class="text-muted">Keep your school informed with regular announcements.</p>
+            </div>
+        <% } %>
+    </div>
+</div>
+

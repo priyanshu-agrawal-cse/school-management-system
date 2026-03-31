@@ -1,0 +1,44 @@
+<% layout("/layouts/schoolLayout") %>
+<div class="app-wrapper">
+    <%- include("../includes/sideNav.ejs", {currentPage: 'notices'}) %>
+    <div class="main-content">
+    <div class="header">
+        <div>
+            <h2>Post New Notice</h2>
+            <p>Announce school updates to students and staff</p>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-8">
+            <div class="card border-0 shadow-sm rounded-4 p-4 mt-4">
+                <form action="/notices/add" method="POST">
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Notice Title</label>
+                        <input type="text" name="title" class="form-control rounded-3 p-3 bg-light border-0" placeholder="e.g. Annual Sports Meet 2024" required>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Target Audience</label>
+                        <select name="target" class="form-select rounded-3 p-3 bg-light border-0">
+                            <option value="All">Everyone</option>
+                            <option value="Students">All Students</option>
+                            <option value="Teachers">All Teachers</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label fw-semibold">Content</label>
+                        <textarea name="content" class="form-control rounded-3 p-3 bg-light border-0" rows="5" placeholder="Details of the announcement..." required></textarea>
+                    </div>
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-primary px-5 rounded-pill shadow-sm">Post Notice</button>
+                        <a href="/notices" class="btn btn-light px-4 rounded-pill">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+

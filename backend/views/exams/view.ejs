@@ -1,0 +1,52 @@
+<% layout("/layouts/schoolLayout") %>
+<div class="app-wrapper">
+    <%- include("../includes/sideNav.ejs", {currentPage: 'exams'}) %>
+    <div class="main-content">
+    <div class="header d-flex justify-content-between align-items-center">
+        <div>
+            <h2>Exams & Result</h2>
+            <p>Manage exam schedules and student performance</p>
+        </div>
+        <a href="/exams/add" class="btn btn-primary rounded-pill shadow-sm">
+            <i class="bi bi-plus-lg me-2"></i>New Exam
+        </a>
+    </div>
+
+    <div class="row g-4 mt-2">
+        <% if(exams && exams.length > 0) { %>
+            <% for(let exam of exams) { %>
+                <div class="col-md-4">
+                    <div class="card border-0 shadow-sm rounded-4 overflow-hidden h-100">
+                        <div class="p-4">
+                            <div class="d-flex align-items-center mb-3">
+                                <div class="bg-primary-subtle text-primary rounded-3 p-2 me-3">
+                                    <i class="bi bi-file-earmark-text fs-4"></i>
+                                </div>
+                                <h5 class="fw-bold m-0"><%= exam.name %></h5>
+                            </div>
+                            <div class="text-muted mb-3">
+                                <i class="bi bi-people me-2"></i>Class <%= exam.classId.class %> - <%= exam.classId.section %>
+                            </div>
+                            <div class="text-muted mb-4">
+                                <i class="bi bi-calendar-event me-2"></i><%= exam.date.toDateString() %>
+                            </div>
+                            <div class="d-flex gap-2">
+                                <a href="/exams/marks/<%= exam._id %>" class="btn btn-outline-primary w-100 rounded-pill btn-sm">Enter Marks</a>
+                                <a href="#" class="btn btn-light w-100 rounded-pill btn-sm text-secondary">View Results</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            <% } %>
+        <% } else { %>
+            <div class="col-12 text-center py-5">
+                <div class="display-3 text-muted mb-4 opacity-25">
+                    <i class="bi bi-clipboard2-check"></i>
+                </div>
+                <h4 class="text-muted">No exams scheduled</h4>
+                <p class="text-muted">Schedule your first exam to begin managing marks.</p>
+                </div>
+</div>
+        <% } %>
+    </div>
+</div>

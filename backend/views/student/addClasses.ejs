@@ -1,0 +1,175 @@
+<% layout("/layouts/schoolLayout") %>
+<% var currentPage = 'classes'; %>
+
+<style>
+    body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        background: #f8f9fa;
+    }
+
+    .top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+
+    .btn-green {
+        background-color: #2c5234;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 8px;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.2s;
+    }
+
+    .btn-green:hover {
+        background-color: #1a4731;
+        transform: translateY(-1px);
+    }
+
+    .card {
+        background: white;
+        border: 1px solid #ddd;
+        border-radius: 12px;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+        padding: 24px;
+        max-width: 800px;
+    }
+
+    .class-item {
+        background: #fdfdfd;
+        border: 1px solid #edf2f7;
+        padding: 20px;
+        border-radius: 10px;
+        margin-bottom: 20px;
+        position: relative;
+        transition: all 0.2s;
+    }
+
+    .class-item:hover {
+        border-color: #cbd5e0;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    }
+
+    .remove-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        background: #feb2b2;
+        color: #c53030;
+        border: none;
+        width: 24px;
+        height: 24px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0;
+    }
+
+    .remove-btn:hover {
+        background: #fc8181;
+    }
+
+    .form-label {
+        font-size: 13px;
+        font-weight: 600;
+        color: #4a5568;
+        margin-bottom: 6px;
+    }
+
+    .form-control {
+        border-radius: 8px;
+        padding: 10px;
+        border: 1px solid #e2e8f0;
+    }
+
+    .form-control:focus {
+        border-color: #2c5234;
+        box-shadow: 0 0 0 3px rgba(44,82,52,0.1);
+    }
+</style>
+
+<div class="app-wrapper">
+    <%- include("../includes/sideNav.ejs", {currentPage: 'classes'}) %>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <div>
+                <h2>Manage Classes</h2>
+                <p>Add and configure classes for your school.</p>
+            </div>
+            <button type="button" class="btn btn-outline-success btn-sm" id="addClassBtn">
+                <i class="bi bi-plus-lg"></i> Add Another Class
+            </button>
+        </div>
+
+        <div class="card">
+            <form method="POST" action="/classes/add" class="needs-validation" novalidate>
+                <div id="classesContainer">
+                    <div class="class-item">
+                        <div class="row g-3">
+                            <div class="col-md-4">
+                                <label class="form-label">Class Name</label>
+                                <input type="text" name="classId[class][]" class="form-control" placeholder="e.g. 10th" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Section</label>
+                                <input type="text" name="classId[section][]" class="form-control" placeholder="e.g. A" required>
+                            </div>
+                            <div class="col-md-4">
+                                <label class="form-label">Academic Fee (₹)</label>
+                                <input type="number" name="classId[acadmicFee][]" class="form-control" placeholder="Annual Fee" required>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-4 pt-3 border-top">
+                    <button class="btn-green w-100">Save All Classes</button>
+                </div>
+            </form>
+        </div>
+    </div><!-- /main-content -->
+</div><!-- /app-wrapper -->
+
+<!-- Bootstrap Icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<script>
+    const addClassBtn = document.getElementById("addClassBtn");
+    const classesContainer = document.getElementById("classesContainer");
+
+    addClassBtn.addEventListener("click", () => {
+        const div = document.createElement("div");
+        div.className = "class-item";
+
+        div.innerHTML = `
+            <div class="row g-3">
+                <div class="col-md-4">
+                    <label class="form-label">Class Name</label>
+                    <input type="text" name="classId[class][]" class="form-control" placeholder="e.g. 10th" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Section</label>
+                    <input type="text" name="classId[section][]" class="form-control" placeholder="e.g. A" required>
+                </div>
+                <div class="col-md-4">
+                    <label class="form-label">Academic Fee (₹)</label>
+                    <input type="number" name="classId[acadmicFee][]" class="form-control" placeholder="Annual Fee" required>
+                </div>
+            </div>
+            <button type="button" class="remove-btn">✕</button>
+        `;
+
+        div.querySelector(".remove-btn").onclick = () => div.remove();
+        classesContainer.appendChild(div);
+    });
+</script>

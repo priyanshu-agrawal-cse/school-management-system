@@ -1,0 +1,60 @@
+<% layout("/layouts/schoolLayout") %>
+<div class="app-wrapper">
+    <%- include("../includes/sideNav.ejs", {currentPage: 'attendance'}) %>
+    <div class="main-content">
+        <div class="header d-flex justify-content-between align-items-center">
+            <div>
+                <h2>Attendance Reports</h2>
+                <p>Summary of daily attendance by class</p>
+            </div>
+            <a href="/attendance" class="btn btn-primary rounded-pill shadow-sm">
+                <i class="bi bi-plus-lg me-2"></i>Mark New
+            </a>
+        </div>
+
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mt-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Date</th>
+                            <th>Class</th>
+                            <th class="text-center">Present</th>
+                            <th class="text-center">Absent</th>
+                            <th class="text-center">Leave</th>
+                            <th class="text-end pe-4">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% if(report && report.length > 0) { %>
+                            <% for(let r of report) { %>
+                                <tr>
+                                    <td class="ps-4 fw-semibold text-muted"><%= r._id.date %></td>
+                                    <td>
+                                        <div class="fw-bold text-primary">Class <%= r.classDetails.class %> - <%= r.classDetails.section %></div>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-success-subtle text-success rounded-pill px-3"><%= r.present %></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-danger-subtle text-danger rounded-pill px-3"><%= r.absent %></span>
+                                    </td>
+                                    <td class="text-center">
+                                        <span class="badge bg-warning-subtle text-warning rounded-pill px-3"><%= r.leave %></span>
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <a href="/attendance/view/<%= r._id.classId %>/<%= r._id.date %>" class="btn btn-light btn-sm rounded-pill">View Details</a>
+                                    </td>
+                                </tr>
+                            <% } %>
+                        <% } else { %>
+                            <tr>
+                                <td colspan="6" class="text-center py-5 text-muted">No attendance reports found.</td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

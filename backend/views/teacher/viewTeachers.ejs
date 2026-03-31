@@ -1,0 +1,98 @@
+<% layout("/layouts/schoolLayout") %>
+<% var currentPage = 'teachers'; %>
+
+<style>
+  body { margin: 0; font-family: "Segoe UI", sans-serif; background: #f8f9fa; }
+  table { width: 100%; border-collapse: collapse; background: white; border-radius: 10px; overflow: hidden; box-shadow: 0 2px 6px rgba(0,0,0,0.1); }
+  th, td { padding: 12px; border-bottom: 1px solid #eee; text-align: left; }
+  th { background: #f1f1f1; }
+  .action-btn { color: #2c5234; cursor: pointer; font-weight: bold; }
+  .qr-img { border-radius: 6px; border: 1px solid #ddd; cursor: pointer; }
+  .portal-btn { background: #2c5234; color: white; padding: 5px 10px; border-radius: 6px; text-decoration: none; font-size: 13px; }
+  .top-bar { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; }
+  .btn-green { background: #2c5234; color: white; border: none; padding: 8px 16px; border-radius: 6px; cursor: pointer; font-size: 14px; text-decoration: none; display: inline-block; }
+
+  /* QR Modal */
+  .qr-modal { display: none; position: fixed; z-index: 999; padding-top: 100px; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.85); }
+  .qr-modal-content { margin: auto; display: block; width: 300px; border-radius: 12px; animation: zoomIn 0.3s ease; }
+  .close-btn { position: absolute; top: 30px; right: 40px; color: white; font-size: 35px; cursor: pointer; }
+  @keyframes zoomIn { from { transform: scale(0.7); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+</style>
+
+<div class="app-wrapper">
+  <%- include("../includes/sideNav.ejs", {currentPage: 'teachers'}) %>
+
+  <!-- Right Panel -->
+  <div class="main-content">
+    <div class="top-bar">
+      <div>
+        <h2>Teachers</h2>
+        <p>Manage all teachers of your school</p>
+      </div>
+      <a href="/teachers/add" class="btn-green">+ Add Teacher</a>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Name</th>
+          <th>Phone</th>
+          <th>Salary</th>
+          <th>Class</th>
+          <th>Subjects</th>
+          <th>QR</th>
+          <th>Portal</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% teachers.forEach((t, i) => { %>
+        <tr>
+          <td><%= i+1 %></td>
+          <td><%= t.name %></td>
+          <td><%= t.phoneNumber %></td>
+          <td>₹ <%= t.salary %></td>
+          <td>
+            <% if(t.classId){ %>
+              Class <%= t.classId.class %> - <%= t.classId.section %>
+            <% } else { %>N/A<% } %>
+          </td>
+          <td><%= t.subjects.join(", ") %></td>
+          <td>
+            <img src="/teacher/<%= t._id %>/qrcode.png" width="70" class="qr-img"
+              onclick="openQRModal('/teacher/<%= t._id %>/qrcode.png')" />
+          </td>
+          <td>
+            <a href="/teacher/portal/<%= t._id %>" class="portal-btn">Open</a>
+          </td>
+          <td>
+            <span class="action-btn">Edit</span> |
+            <span class="action-btn">Delete</span>
+          </td>
+        </tr>
+        <% }) %>
+      </tbody>
+    </table>
+  </div><!-- /main-content -->
+</div><!-- /app-wrapper -->
+
+<!-- QR Modal -->
+<div id="qrModal" class="qr-modal">
+  <span class="close-btn" onclick="closeQRModal()">&times;</span>
+  <img id="qrModalImg" class="qr-modal-content">
+</div>
+
+<script>
+function openQRModal(src){
+  document.getElementById("qrModalImg").src = src;
+  document.getElementById("qrModal").style.display = "block";
+}
+function closeQRModal(){
+  document.getElementById("qrModal").style.display = "none";
+}
+window.onclick = function(event) {
+  const modal = document.getElementById("qrModal");
+  if (event.target === modal) modal.style.display = "none";
+}
+</script>

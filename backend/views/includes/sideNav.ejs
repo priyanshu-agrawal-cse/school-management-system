@@ -1,0 +1,257 @@
+<% 
+  var _page = '';
+  if (typeof currentPage !== 'undefined') {
+    _page = currentPage;
+  } else if (typeof locals !== 'undefined' && typeof locals.currentPage !== 'undefined') {
+    _page = locals.currentPage;
+  }
+%>
+<style>
+  /* ===== UNIFIED SIDEBAR ===== */
+  body {
+    margin: 0;
+    font-family: "Segoe UI", sans-serif;
+    background: #f8f9fa;
+  }
+
+  .app-wrapper {
+    display: flex;
+    min-height: 100vh;
+  }
+
+  #sidebar {
+    width: 240px;
+    min-width: 240px;
+    background: #1a1a2e;
+    border-right: 1px solid #16213e;
+    height: 100vh;
+    position: sticky;
+    top: 0;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+  }
+
+  .sidebar-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 20px 16px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+    text-decoration: none;
+  }
+
+  .sidebar-brand-icon {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, #2c6e49, #1a4731);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 18px;
+    color: white;
+    flex-shrink: 0;
+    box-shadow: 0 3px 8px rgba(44,110,73,0.4);
+  }
+
+  .sidebar-brand-text {
+    font-size: 16px;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.3px;
+  }
+
+  #sidebar .sidebar-section-label {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: rgba(255,255,255,0.5) !important;
+    padding: 16px 16px 6px;
+  }
+
+  .sidebar-nav {
+    list-style: none;
+    padding: 0 8px;
+    margin: 0;
+    flex: 1;
+  }
+
+  .sidebar-nav .nav-item {
+    margin-bottom: 2px;
+  }
+
+  #sidebar .sidebar-nav .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: rgba(255,255,255,0.75) !important;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.18s, color 0.18s;
+    white-space: nowrap;
+  }
+
+  .sidebar-nav .nav-link i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+    flex-shrink: 0;
+  }
+
+  #sidebar .sidebar-nav .nav-link:hover {
+    background: rgba(255,255,255,0.07) !important;
+    color: #ffffff !important;
+  }
+
+  #sidebar .sidebar-nav .nav-link.active {
+    background: #2c5234 !important;
+    color: #ffffff !important;
+    box-shadow: 0 2px 8px rgba(44,82,52,0.4);
+    font-weight: 600;
+  }
+
+  .sidebar-divider {
+    height: 1px;
+    background: rgba(255,255,255,0.06);
+    margin: 8px 16px;
+  }
+
+  .sidebar-footer {
+    padding: 8px;
+    border-top: 1px solid rgba(255,255,255,0.06);
+  }
+
+  #sidebar .sidebar-footer .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border-radius: 8px;
+    color: #ff6b6b !important;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    transition: background 0.18s, color 0.18s;
+  }
+
+  #sidebar .sidebar-footer .nav-link:hover {
+    background: rgba(255,80,80,0.12) !important;
+    color: #ff8787 !important;
+  }
+
+  .sidebar-footer .nav-link i {
+    font-size: 16px;
+    width: 20px;
+    text-align: center;
+  }
+
+  /* Right panel */
+  .main-content {
+    flex: 1;
+    padding: 30px;
+    background: #f8f9fa;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+</style>
+
+<!-- Bootstrap Icons (ensure loaded) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+
+<div id="sidebar">
+  <!-- Brand -->
+  <a href="/dashboard" class="sidebar-brand">
+    <div class="sidebar-brand-icon"><i class="bi bi-mortarboard-fill"></i></div>
+    <span class="sidebar-brand-text">EduManage</span>
+  </a>
+
+  <!-- Main Navigation -->
+  <p class="sidebar-section-label">Main</p>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <a href="/dashboard" class="nav-link <%= currentPage === 'dashboard' ? 'active' : '' %>">
+        <i class="bi bi-speedometer2"></i> Dashboard
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/viewStudent" class="nav-link <%= currentPage === 'students' ? 'active' : '' %>">
+        <i class="bi bi-people-fill"></i> Students
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/fees" class="nav-link <%= currentPage === 'fees' ? 'active' : '' %>">
+        <i class="bi bi-cash-coin"></i> Fees
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-divider"></div>
+
+  <p class="sidebar-section-label">Management</p>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+                <a href="/attendance/report" class="nav-link <%= _page === 'attendance' ? 'active' : '' %>">
+                    <i class="bi bi-calendar-check"></i>
+                    <span>Attendance</span>
+                </a>
+    <li class="nav-item">
+      <a href="/exams" class="nav-link <%= currentPage === 'exams' ? 'active' : '' %>">
+        <i class="bi bi-file-earmark-spreadsheet"></i> Exams & Results
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/notices" class="nav-link <%= currentPage === 'notices' ? 'active' : '' %>">
+        <i class="bi bi-megaphone"></i> Notice Board
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-divider"></div>
+
+  <p class="sidebar-section-label">Teachers</p>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <a href="/teachers" class="nav-link <%= currentPage === 'teachers' ? 'active' : '' %>">
+        <i class="bi bi-chalkboard-teacher"></i> View Teachers
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/teachers/add" class="nav-link <%= currentPage === 'addTeacher' ? 'active' : '' %>">
+        <i class="bi bi-person-plus-fill"></i> Add Teacher
+      </a>
+    </li>
+  </ul>
+
+  <div class="sidebar-divider"></div>
+
+  <p class="sidebar-section-label">Settings</p>
+  <ul class="sidebar-nav">
+    <li class="nav-item">
+      <a href="/addStudent" class="nav-link <%= currentPage === 'addStudent' ? 'active' : '' %>">
+        <i class="bi bi-person-add"></i> Add Student
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/classes/add" class="nav-link <%= currentPage === 'classes' ? 'active' : '' %>">
+        <i class="bi bi-plus-circle-fill"></i> Add Class
+      </a>
+    </li>
+    <li class="nav-item">
+      <a href="/account" class="nav-link <%= currentPage === 'account' ? 'active' : '' %>">
+        <i class="bi bi-person-circle"></i> Account
+      </a>
+    </li>
+  </ul>
+
+  <!-- Logout at bottom -->
+  <div class="sidebar-footer">
+    <a href="/logout" class="nav-link">
+      <i class="bi bi-box-arrow-right"></i> Logout
+    </a>
+  </div>
+</div>

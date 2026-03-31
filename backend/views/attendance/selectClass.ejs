@@ -1,0 +1,28 @@
+<% layout("/layouts/schoolLayout") %>
+<div class="app-wrapper">
+    <% if(currentUser) { %>
+        <%- include("../includes/sideNav.ejs", {currentPage: 'attendance'}) %>
+    <% } %>
+    <div class="main-content">
+    <div class="header">
+        <div>
+            <h2>Select Class</h2>
+            <p>Select a class to mark attendance</p>
+        </div>
+    </div>
+
+    <div class="row g-4">
+        <% for(let cls of classes) { %>
+            <div class="col-md-4">
+                <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+                    <div class="p-4 text-center">
+                        <div class="display-6 fw-bold text-primary mb-2">Class <%= cls.class %></div>
+                        <div class="text-muted mb-4">Section <%= cls.section %></div>
+                        <a href="/attendance/mark/<%= cls._id %>" class="btn btn-primary w-100 rounded-pill">Mark Attendance</a>
+                    </div>
+                </div>
+            </div>
+        <% } %>
+    </div>
+</div>
+

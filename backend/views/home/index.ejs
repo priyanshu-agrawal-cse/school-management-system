@@ -1,0 +1,492 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="EduManage – The all-in-one school management system for modern institutions. Manage students, teachers, fees, attendance, and more." />
+  <title>EduManage – Smart School Management System</title>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+  <!-- Our Landing CSS -->
+  <link rel="stylesheet" href="/css/home.css">
+</head>
+<body class="home-page">
+
+  <!-- =========== NAVBAR =========== -->
+  <nav class="home-nav" id="homeNav">
+    <a href="/" class="nav-brand">
+      <div class="brand-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+      EduManage
+    </a>
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#modules">Modules</a></li>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+    </ul>
+    <div class="nav-actions">
+      <a href="/login" class="btn-outline-nav">Log In</a>
+      <a href="/signup" class="btn-primary-nav">Get Started Free</a>
+    </div>
+    <button class="nav-toggler" id="navToggler" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- =========== HERO =========== -->
+  <section class="hero">
+    <div class="hero-inner">
+      <!-- Left Content -->
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="dot"></span>
+          Now with AI-powered Attendance & Fee Alerts
+        </div>
+        <h1>
+          Run Your School<br>
+          Smarter with<br>
+          <span class="highlight">EduManage</span>
+        </h1>
+        <p class="hero-desc">
+          The complete school management platform — students, teachers, fees, homework, attendance and reports all in one powerful dashboard.
+        </p>
+        <div class="hero-cta">
+          <a href="/signup" class="btn-hero-primary">
+            <i class="fa-solid fa-rocket"></i> Start for Free
+          </a>
+          <a href="/login" class="btn-hero-secondary">
+            <i class="fa-regular fa-circle-play"></i> Sign In
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat-item">
+            <span class="num">500+</span>
+            <span>Schools</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="num">50k+</span>
+            <span>Students</span>
+          </div>
+          <div class="hero-stat-item">
+            <span class="num">99.9%</span>
+            <span>Uptime</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Visual (Dashboard Preview Cards) -->
+      <div class="hero-visual">
+
+        <!-- Card 1: Fee Collection -->
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <div class="hc-icon green"><i class="fa-solid fa-indian-rupee-sign" style="color:#4ade80"></i></div>
+            <div>
+              <div class="hc-title">Fee Collection – March 2026</div>
+              <div class="hc-sub">Monthly overview</div>
+            </div>
+          </div>
+          <div class="hc-progress-bar">
+            <div class="fill" style="width: 78%"></div>
+          </div>
+          <div class="hc-progress-label">
+            <span>₹1,56,000 collected</span>
+            <span>78% of target</span>
+          </div>
+        </div>
+
+        <!-- Card 2: Quick Stats -->
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <div class="hc-icon blue"><i class="fa-solid fa-users" style="color:#60a5fa"></i></div>
+            <div>
+              <div class="hc-title">School Overview</div>
+              <div class="hc-sub">Live dashboard</div>
+            </div>
+          </div>
+          <div class="hc-row">
+            <span class="hc-label">Total Students</span>
+            <span class="hc-val">342 <span class="badge-pill badge-success">+12 new</span></span>
+          </div>
+          <div class="hc-row">
+            <span class="hc-label">Teachers</span>
+            <span class="hc-val">28 <span class="badge-pill badge-info">Active</span></span>
+          </div>
+          <div class="hc-row" style="margin-bottom:0">
+            <span class="hc-label">Pending Fees</span>
+            <span class="hc-val">14 <span class="badge-pill badge-warning">Action needed</span></span>
+          </div>
+        </div>
+
+        <!-- Card 3: Attendance -->
+        <div class="hero-card">
+          <div class="hero-card-header">
+            <div class="hc-icon orange"><i class="fa-solid fa-calendar-check" style="color:#fbbf24"></i></div>
+            <div>
+              <div class="hc-title">Attendance Today</div>
+              <div class="hc-sub">24 March 2026</div>
+            </div>
+          </div>
+          <div class="hc-progress-bar">
+            <div class="fill" style="width: 92%; background: linear-gradient(90deg, #fbbf24, #f97316)"></div>
+          </div>
+          <div class="hc-progress-label">
+            <span>315 / 342 present</span>
+            <span>92% attendance</span>
+          </div>
+        </div>
+
+      </div><!-- /hero-visual -->
+    </div><!-- /hero-inner -->
+  </section>
+
+  <!-- =========== TRUSTED =========== -->
+  <section class="trusted-section">
+    <p>Trusted by schools across the country</p>
+    <div class="trusted-logos">
+      <div class="trusted-logo"><i class="fa-solid fa-school"></i> Greenfield Academy</div>
+      <div class="trusted-logo"><i class="fa-solid fa-school"></i> Sunrise Public School</div>
+      <div class="trusted-logo"><i class="fa-solid fa-school"></i> Little Angels School</div>
+      <div class="trusted-logo"><i class="fa-solid fa-school"></i> St. Mary's Convent</div>
+      <div class="trusted-logo"><i class="fa-solid fa-school"></i> New Era High School</div>
+    </div>
+  </section>
+
+  <!-- =========== FEATURES =========== -->
+  <section class="features-section" id="features">
+    <div class="container-inner">
+      <div class="section-header fade-up">
+        <span class="section-tag">Features</span>
+        <h2>Everything a Modern School Needs</h2>
+        <p>A complete suite of tools built to simplify school administration and enhance learning experiences.</p>
+      </div>
+      <div class="features-grid">
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon"><i class="fa-solid fa-users-gear"></i></div>
+          <h3>Student Management</h3>
+          <p>Enrol, update, and track students across all classes. Search, filter by class, roll number and generate reports instantly.</p>
+          <a href="/signup" class="feature-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon"><i class="fa-solid fa-chalkboard-user"></i></div>
+          <h3>Teacher Portal</h3>
+          <p>Teachers get a dedicated QR-based portal to manage their class, mark attendance, and assign homework to students.</p>
+          <a href="/signup" class="feature-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon"><i class="fa-solid fa-file-invoice-dollar"></i></div>
+          <h3>Fee Management</h3>
+          <p>Track academic fees, hostel charges, UPI payments, pending dues and generate detailed monthly financial reports.</p>
+          <a href="/signup" class="feature-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon"><i class="fa-solid fa-calendar-days"></i></div>
+          <h3>Attendance Tracking</h3>
+          <p>Daily attendance recorded per class with monthly summaries and automatic alerts for consistently absent students.</p>
+          <a href="/signup" class="feature-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon"><i class="fa-solid fa-book-open-reader"></i></div>
+          <h3>Homework & Assignments</h3>
+          <p>Teachers can assign and track homework digitally. Students submit work, teachers mark completion — all in one place.</p>
+          <a href="/signup" class="feature-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+        <div class="feature-card fade-up">
+          <div class="feature-icon"><i class="fa-solid fa-chart-line"></i></div>
+          <h3>Analytics & Reports</h3>
+          <p>Beautiful charts and graphs for fee collections, student strength, attendance trends and yearly performance reviews.</p>
+          <a href="/signup" class="feature-link">Explore <i class="fa-solid fa-arrow-right"></i></a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== STATS =========== -->
+  <section class="stats-section">
+    <div class="stats-inner">
+      <div class="stat-item fade-up">
+        <span class="stat-num">500<span class="stat-suffix">+</span></span>
+        <span class="stat-label">Schools Registered</span>
+      </div>
+      <div class="stat-item fade-up">
+        <span class="stat-num">50<span class="stat-suffix">k+</span></span>
+        <span class="stat-label">Students Enrolled</span>
+      </div>
+      <div class="stat-item fade-up">
+        <span class="stat-num">₹2<span class="stat-suffix">Cr+</span></span>
+        <span class="stat-label">Fees Processed</span>
+      </div>
+      <div class="stat-item fade-up">
+        <span class="stat-num">99.9<span class="stat-suffix">%</span></span>
+        <span class="stat-label">Uptime Guaranteed</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== HOW IT WORKS =========== -->
+  <section class="how-section" id="how">
+    <div class="container-inner">
+      <div class="section-header fade-up">
+        <span class="section-tag">How It Works</span>
+        <h2>Set Up Your School in 3 Simple Steps</h2>
+        <p>Get your entire school online in under 5 minutes. No technical knowledge required.</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-item fade-up">
+          <div class="step-num">
+            <span class="step-icon">📝</span>
+          </div>
+          <h3>Create Your Account</h3>
+          <p>Sign up for free with your school email. No credit card needed — get instant access to all features.</p>
+        </div>
+        <div class="step-item fade-up">
+          <div class="step-num">
+            <span class="step-icon">🏫</span>
+          </div>
+          <h3>Register Your School</h3>
+          <p>Add your school details, define classes, sections, and configure your fee structure in minutes.</p>
+        </div>
+        <div class="step-item fade-up">
+          <div class="step-num">
+            <span class="step-icon">🚀</span>
+          </div>
+          <h3>Start Managing</h3>
+          <p>Add students and teachers, collect fees, track attendance and access all reports from your dashboard.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== MODULES =========== -->
+  <section class="modules-section" id="modules">
+    <div class="container-inner">
+      <div class="section-header fade-up">
+        <span class="section-tag">Modules</span>
+        <h2>All Modules. One Platform.</h2>
+        <p>Every critical school operation is covered so you never need another tool.</p>
+      </div>
+      <div class="modules-grid">
+        <div class="module-card fade-up">
+          <span class="module-icon">🎓</span>
+          <h4>Student Records</h4>
+          <p>Complete student profiles, roll numbers, guardian info</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">👨‍🏫</span>
+          <h4>Teacher Management</h4>
+          <p>Salary, classes, subject assignments and QR portals</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">💰</span>
+          <h4>Fee Collection</h4>
+          <p>Academic & hostel fees, UPI tracking, receipts</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">📅</span>
+          <h4>Attendance</h4>
+          <p>Daily class-wise attendance with monthly reports</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">📚</span>
+          <h4>Homework</h4>
+          <p>Digital assignment creation and submission tracking</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">📊</span>
+          <h4>Analytics</h4>
+          <p>Visual charts for fees, students, and performance</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">🏠</span>
+          <h4>Hostel Management</h4>
+          <p>Track boarding students and hostel fees separately</p>
+        </div>
+        <div class="module-card fade-up">
+          <span class="module-icon">📱</span>
+          <h4>QR Access</h4>
+          <p>Scan QR codes for teacher portals on any device</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== TESTIMONIALS =========== -->
+  <section class="testimonials-section" id="testimonials">
+    <div class="container-inner">
+      <div class="section-header fade-up">
+        <span class="section-tag">Testimonials</span>
+        <h2>Loved by School Administrators</h2>
+        <p>Here's what educators across India say about EduManage.</p>
+      </div>
+      <div class="testimonials-grid">
+
+        <div class="testimonial-card fade-up">
+          <div class="t-quote">"</div>
+          <p class="t-text">EduManage completely transformed how we run our school. Fee collection that used to take 3 days now happens in minutes. The dashboard is incredibly intuitive.</p>
+          <div class="t-author">
+            <div class="t-avatar">RK</div>
+            <div>
+              <div class="t-stars">★★★★★</div>
+              <div class="t-name">Rajesh Kumar</div>
+              <div class="t-role">Principal, Greenfield Academy, Delhi</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="t-quote">"</div>
+          <p class="t-text">The QR code system for teachers is brilliant. Our teachers can now manage their classes from their phones. Homework tracking has improved student accountability tremendously.</p>
+          <div class="t-author">
+            <div class="t-avatar">PS</div>
+            <div>
+              <div class="t-stars">★★★★★</div>
+              <div class="t-name">Priya Sharma</div>
+              <div class="t-role">Head Mistress, Sunrise Public School, Lucknow</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="testimonial-card fade-up">
+          <div class="t-quote">"</div>
+          <p class="t-text">We manage over 800 students across 24 classes. EduManage handles it all effortlessly. The analytics reports save us hours every month. Highly recommended!</p>
+          <div class="t-author">
+            <div class="t-avatar">AM</div>
+            <div>
+              <div class="t-stars">★★★★★</div>
+              <div class="t-name">Anit Mishra</div>
+              <div class="t-role">Director, New Era High School, Jaipur</div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== CTA =========== -->
+  <section class="cta-section">
+    <div class="cta-inner">
+      <h2>Ready to Transform Your School?</h2>
+      <p>Join 500+ schools already using EduManage. Get started for free — no credit card required.</p>
+      <div class="cta-buttons">
+        <a href="/signup" class="btn-cta-primary">
+          <i class="fa-solid fa-rocket"></i> Create Free Account
+        </a>
+        <a href="/login" class="btn-cta-secondary">
+          Already have an account? Sign In
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- =========== FOOTER =========== -->
+  <footer class="home-footer">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="/" class="brand-logo">
+          <div class="b-icon"><i class="fa-solid fa-graduation-cap"></i></div>
+          EduManage
+        </a>
+        <p>The all-in-one school management platform built for modern Indian schools. Simplify administration, empower teachers, and engage students.</p>
+        <div class="footer-socials">
+          <a href="#" class="social-btn"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-twitter"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" class="social-btn"><i class="fa-brands fa-linkedin-in"></i></a>
+        </div>
+      </div>
+
+      <div class="footer-col">
+        <h4>Product</h4>
+        <ul class="footer-links">
+          <li><a href="#features">Features</a></li>
+          <li><a href="#modules">Modules</a></li>
+          <li><a href="#how">How It Works</a></li>
+          <li><a href="#testimonials">Reviews</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Account</h4>
+        <ul class="footer-links">
+          <li><a href="/signup">Sign Up</a></li>
+          <li><a href="/login">Log In</a></li>
+          <li><a href="/dashboard">Dashboard</a></li>
+          <li><a href="/schoolRegistration">School Setup</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4>Support</h4>
+        <ul class="footer-links">
+          <li><a href="#">Help Center</a></li>
+          <li><a href="#">Contact Us</a></li>
+          <li><a href="#">Privacy Policy</a></li>
+          <li><a href="#">Terms of Use</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <span>© 2026 EduManage. All rights reserved.</span>
+      <span>Made with ❤️ for Indian Schools</span>
+    </div>
+  </footer>
+
+  <!-- =========== SCRIPTS =========== -->
+  <script>
+    // Navbar scroll effect
+    const nav = document.getElementById('homeNav');
+    window.addEventListener('scroll', () => {
+      nav.classList.toggle('scrolled', window.scrollY > 20);
+    });
+
+    // Fade-up animations on scroll
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => {
+            entry.target.classList.add('visible');
+          }, i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+
+    // Mobile nav toggle
+    const toggler = document.getElementById('navToggler');
+    const navLinks = document.querySelector('.nav-links');
+    if (toggler && navLinks) {
+      toggler.addEventListener('click', () => {
+        navLinks.style.display = navLinks.style.display === 'flex' ? 'none' : 'flex';
+        navLinks.style.flexDirection = 'column';
+        navLinks.style.position = 'absolute';
+        navLinks.style.top = '72px';
+        navLinks.style.left = '0';
+        navLinks.style.right = '0';
+        navLinks.style.background = 'white';
+        navLinks.style.padding = '20px 5%';
+        navLinks.style.boxShadow = '0 8px 24px rgba(0,0,0,0.12)';
+        navLinks.style.zIndex = '999';
+      });
+    }
+  </script>
+
+</body>
+</html>

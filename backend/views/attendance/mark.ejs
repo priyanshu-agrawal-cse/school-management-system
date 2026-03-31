@@ -1,0 +1,60 @@
+<% layout("/layouts/schoolLayout") %>
+<div class="app-wrapper">
+    <% if(currentUser) { %>
+        <%- include("../includes/sideNav.ejs", {currentPage: 'attendance'}) %>
+    <% } %>
+    <div class="main-content">
+    <div class="header d-flex justify-content-between align-items-center">
+        <div>
+            <h2>Mark Attendance</h2>
+            <p>Daily attendance marking for Class</p>
+        </div>
+        <div>
+            <span class="badge bg-light text-dark shadow-sm p-2"><%= new Date().toDateString() %></span>
+        </div>
+    </div>
+
+    <form action="/attendance/mark/<%= classId %>" method="POST">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden mt-4">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0">
+                    <thead class="bg-light">
+                        <tr>
+                            <th class="ps-4">Roll No</th>
+                            <th>Student Name</th>
+                            <th class="text-center">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for(let s of students) { %>
+                            <tr>
+                                <td class="ps-4 fw-bold text-muted"><%= s.rollNumber %></td>
+                                <td>
+                                    <div class="fw-semibold"><%= s.name %></div>
+                                    <small class="text-muted"><%= s.father_name %></small>
+                                </td>
+                                <td class="text-center">
+                                    <div class="btn-group" role="group">
+                                        <input type="radio" class="btn-check" name="attendance[<%= s._id %>]" id="p_<%= s._id %>" value="Present" checked>
+                                        <label class="btn btn-outline-success btn-sm" for="p_<%= s._id %>">P</label>
+
+                                        <input type="radio" class="btn-check" name="attendance[<%= s._id %>]" id="a_<%= s._id %>" value="Absent">
+                                        <label class="btn btn-outline-danger btn-sm" for="a_<%= s._id %>">A</label>
+
+                                        <input type="radio" class="btn-check" name="attendance[<%= s._id %>]" id="l_<%= s._id %>" value="Leave">
+                                        <label class="btn btn-outline-warning btn-sm" for="l_<%= s._id %>">L</label>
+                                    </div>
+                                </td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="mt-4">
+            <button class="btn btn-primary px-5 rounded-pill shadow-sm">Save Attendance</button>
+        </div>
+    </form>
+</div>
+</div>
+
