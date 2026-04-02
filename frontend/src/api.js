@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_URL = 'https://aivants.backendbots.com/api/school-mgmt';
+export const API_URL = 'https://aivants.backendbots.com/api100b';
 
 const api = axios.create({ baseURL: API_URL });
 

@@ -33,7 +33,7 @@ const attendanceRoutes = require("./routes/attendance");
 const noticeRoutes = require("./routes/notice");
 const examRoutes = require("./routes/exam");
 
-const apiPrefix = '/api/school-mgmt';
+const apiPrefix = '/api100b';
 
 app.use(apiPrefix + "/auth", authRoutes);
 app.use(apiPrefix + "/school", schoolRoutes);
@@ -45,7 +45,7 @@ app.use(apiPrefix + "/notice", noticeRoutes);
 app.use(apiPrefix + "/exam", examRoutes);
 
 // Health check
-app.get("/api/school-mgmt/health", (req, res) => res.json({ status: "ok" }));
+app.get("/api100b/health", (req, res) => res.json({ status: "ok" }));
 
 app.listen(8080, '0.0.0.0', () => {
   console.log("School Management API running on port 8080");
