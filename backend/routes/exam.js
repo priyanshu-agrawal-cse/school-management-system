@@ -3,12 +3,11 @@ const router = express.Router();
 const examController = require("../controllers/exam");
 const { isLoggedIn } = require("../middleware");
 
-router.get("/exams", isLoggedIn, examController.renderExams);
-router.route("/exams/add")
-    .get(isLoggedIn, examController.renderAddForm)
+router.route("/exams")
+    .get(isLoggedIn, examController.renderExams)
     .post(isLoggedIn, examController.addExam);
-
-router.route("/exams/marks/:id")
+router.get("/exams/add", isLoggedIn, examController.renderAddForm);
+router.route("/exam/:id/marks")
     .get(isLoggedIn, examController.renderAddMarksForm)
     .post(isLoggedIn, examController.addMarks);
 

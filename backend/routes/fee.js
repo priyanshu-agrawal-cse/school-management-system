@@ -7,6 +7,6 @@ const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/fees", isLoggedIn, feeController.renderFees);
 router.post("/upload-transaction/:studentId/:schoolId/:amount", upload.single("transactionImage"), feeController.uploadTransaction);
-router.post("/verify-bank-statement", isLoggedIn, upload.single("bankStatement"), feeController.verifyBankStatement);
+router.post("/verify-statement", isLoggedIn, upload.single("statement"), feeController.verifyBankStatement);
 
 module.exports = router;

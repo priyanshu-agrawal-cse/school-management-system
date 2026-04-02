@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Software Requirement Specification</title>
+    <style>
+        body {
+            background-color: #e5e7eb;
+            font-family: 'Times New Roman', Times, serif;
+            margin: 0;
+            padding: 20px;
+            color: #000;
+        }
+
+        .page {
+            max-width: 800px;
+            margin: 0 auto 30px auto;
+            background: white;
+            padding: 2.5cm;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            line-height: 1.6;
+            font-size: 14pt;
+        }
+
+        .page-break {
+            page-break-after: always;
+        }
+
+        .flex-center {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            margin-top: 100px;
+        }
+
+        .main-title {
+            font-size: 30pt;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+
+        .project-title {
+            font-size: 24pt;
+            margin-bottom: 60px;
+        }
+
+        .prepared {
+            font-size: 16pt;
+            margin-bottom: 60px;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 90%;
+            margin-top: 10px;
+            font-size: 14pt;
+        }
+
+        th,
+        td {
+            border: 1px solid #000;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background-color: #f2f2f2;
+            width: 35%;
+        }
+
+        h2 {
+            font-size: 20pt;
+            margin-top: 30px;
+            margin-bottom: 15px;
+            font-weight: bold;
+            border-bottom: 1px solid #000;
+            padding-bottom: 5px;
+            page-break-after: avoid;
+            /* Keeps headers connected to text */
+        }
+
+        h3 {
+            font-size: 16pt;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-weight: bold;
+            page-break-after: avoid;
+        }
+
+        p,
+        ul,
+        ol {
+            font-size: 14pt;
+            margin-top: 10px;
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        li {
+            margin-bottom: 8px;
+        }
+
+        .req {
+            font-weight: bold;
+        }
+
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+
+            .page {
+                box-shadow: none;
+                margin: 0;
+                padding: 0 1.5cm;
+                /* Only side padding on print */
+                max-width: 100%;
+                font-size: 12pt;
+                /* Note: Removed 'page-break-after: always' here so pages flow naturally */
+            }
+
+            .flex-center {
+                margin-top: 180px;
+            }
+
+            h2 {
+                font-size: 18pt;
+            }
+
+            h3 {
+                font-size: 14pt;
+            }
+
+            p,
+            ul,
+            ol,
+            table {
+                font-size: 12pt;
+            }
+
+            .main-title {
+                font-size: 26pt;
+            }
+
+            .project-title {
+                font-size: 20pt;
+            }
+
+            /* Prevent breaking tables and lists halfway across pages */
+            table,
+            tr,
+            td,
+            th {
+                page-break-inside: avoid;
+            }
+
+            li {
+                page-break-inside: avoid;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- FIRST PAGE -->
+    <div class="page page-break">
+        <div class="flex-center">
+            <div class="main-title">SOFTWARE REQUIREMENTS SPECIFICATION</div>
+            <div class="project-title">School Fee Verification System</div>
+
+            <div class="prepared">
+                Prepared by:<br />
+                <strong>Priyanshu Agrawal</strong><br />
+                <strong>Roll No:</strong> [BT23CS006]
+            </div>
+
+            <table>
+                <tr>
+                    <th>Field</th>
+                    <th>Details</th>
+                </tr>
+                <tr>
+                    <td>Project Title</td>
+                    <td>School Management & Fee Verification System</td>
+                </tr>
+                <tr>
+                    <td>Document Type</td>
+                    <td>Software Requirements Specification (SRS)</td>
+                </tr>
+                <tr>
+                    <td>Technology Stack</td>
+                    <td>React.js (Frontend), Node.js & Express (Backend), MongoDB</td>
+                </tr>
+                <tr>
+                    <td>Application Type</td>
+                    <td>Web Application</td>
+                </tr>
+                <tr>
+                    <td>Date</td>
+                    <td>April 2, 2026</td>
+                </tr>
+                <tr>
+                    <td>Version</td>
+                    <td>3.0</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+    <!-- DOCUMENT STRUCTURE AFTER FIRST PAGE - Merged into a SINGLE .page wrapper so it flows naturally! -->
+    <div class="page">
+        <h2>1. Introduction</h2>
+
+        <h3>Purpose</h3>
+        <p>The main purpose of this document is to outline the plans and requirements for our School Fee Verification
+            System. This document serves as a blueprint written before we start coding. It will explain exactly what
+            problem we want to solve and how different users will interact with the new platform.</p>
+
+        <h3>Scope</h3>
+        <p>We are building a web-based portal to make paying and verifying school fees much easier. Usually, schools
+            either manually check payment receipts or use payment gateways like Razorpay. However, real payment gateways
+            charge a percentage fee for every transaction, which isn't ideal for a college project or a small school.
+            Instead, our project will let students upload a screenshot of their normal bank or UPI transfer. The school
+            will then upload their official bank statement or passbook, and our system will match the records
+            automatically to verify the payment.</p>
+
+        <h3>Definitions</h3>
+        <ul>
+            <li><strong>QR Code:</strong> A scannable barcode we will use so students can log in without typing
+                passwords.</li>
+            <li><strong>Passbook / Bank Statement:</strong> A document provided by the bank showing a list of recent
+                transactions.</li>
+            <li><strong>Payment Verification:</strong> The process of checking if the money sent by the student actually
+                reached the school's bank account.</li>
+        </ul>
+
+        <h2>2. Overall System Description</h2>
+
+        <h3>Product Perspective</h3>
+        <p>This system will be an independent, standalone web application. We plan to build the front end using React so
+            it feels fast, and run a Node.js server on the backend to handle the logic. Everything will be stored in a
+            MongoDB database so we don't have to worry about traditional table setups.</p>
+
+        <h3>Product Functions</h3>
+        <p>The main functions we have planned are:</p>
+        <ul>
+            <li>A quick login method using QR codes.</li>
+            <li>Profiles to manage student information properly.</li>
+            <li>A fee submission dashboard for uploading screenshots.</li>
+            <li>An admin portal for uploading the master bank passbook.</li>
+            <li>An automatic checker that compares student screenshots against the passbook.</li>
+            <li>An attendance tracker allowing teachers to securely mark student attendance.</li>
+        </ul>
+
+        <h3>User Classes</h3>
+        <p>There will be three primary types of users:</p>
+        <ul>
+            <li><strong>Admin (School Management):</strong> They will have a special dashboard where they can upload the
+                bank passbook. They manage student records and review pending fee statuses.</li>
+            <li><strong>Teachers:</strong> They will have their own dashboard so they can interact with the system, such
+                as marking attendance for their assigned classes or viewing relevant student data.</li>
+            <li><strong>Students:</strong> They will have a simpler dashboard. They log in to check how much fee is due,
+                and they use the system to upload screenshots of their payments.</li>
+        </ul>
+
+        <h3>Operating Environment</h3>
+        <p>Because this is going to be a web application, people won't need to install any heavy software. They will
+            just need an internet browser like Google Chrome or Safari. We plan to make it mobile-friendly too, since
+            many students will use their phones to upload the screenshots.</p>
+
+        <h2>3. System Features</h2>
+
+        <h3>QR Code Based Login</h3>
+        <p>Instead of writing an email and password every time, we will create a system where students can just scan a
+            QR code from their phone camera to enter their dashboard instantly. This will save a lot of time.</p>
+
+        <h3>Student Dashboard</h3>
+        <p>Once a student logs in, they will see a summary page. We will display basic details like their name, the
+            total fee amount due, and their current payment status (like "Pending" or "Paid").</p>
+
+        <h3>Upload Fee Payment Screenshot</h3>
+        <p>Students will have a dedicated page where they can report a payment. Whether they paid through UPI, NEFT, or
+            standard bank transfer, they will just take a screenshot of the digital receipt and upload the image file to
+            the portal.</p>
+
+        <h3>Admin Dashboard for School</h3>
+        <p>Admins will get their own secure screen. Here they will see a list of all students and their statuses. It is
+            designed to give the school management a clear view of who has paid and who hasn't.</p>
+
+        <h3>Upload Bank Passbook</h3>
+        <p>Rather than integrating complex payment gateways, the school's admin will simply download the daily
+            transaction history (statement or passbook) from their bank and upload that file to the admin dashboard.</p>
+
+        <h3>Automatic Payment Verification</h3>
+        <p>This will be the core logic of our project. When the admin uploads the passbook, the backend will scan
+            through the entries and automatically cross-check them against the screenshots and payment details provided
+            by the students. If a match is found, the system will automatically update the student's record.</p>
+
+        <h3>Payment Status Tracking</h3>
+        <p>Both admins and students will be able to see the status. If the system couldn't verify the payment
+            automatically, it will remain "Pending", and the admin might need to review it. If it successfully matches,
+            it will change to "Paid".</p>
+
+        <h3>Digital Attendance System</h3>
+        <p>To make teachers' lives easier, they will have access to an attendance portal. Instead of calling out roll
+            numbers from a physical register, a teacher can simply open the dashboard, select their assigned class, and
+            quickly mark students as 'Present' or 'Absent' with a single click.</p>
+
+        <h3>Student Information Management</h3>
+        <p>The system will also store and manage general student information, allowing admins to add new students, edit
+            their profiles, or remove them when they leave the school.</p>
+
+        <h2>4. Functional Requirements</h2>
+        <ul>
+            <li><span class="req">FR1:</span> The system shall allow students to log in securely through a QR code scan.
+            </li>
+            <li><span class="req">FR2:</span> The system shall provide a dashboard to display student profiles and their
+                current fee status.</li>
+            <li><span class="req">FR3:</span> The system shall require students to upload an image file (screenshot) of
+                their fee transaction.</li>
+            <li><span class="req">FR4:</span> The system shall provide schools with an admin dashboard to view the fee
+                status of all students.</li>
+            <li><span class="req">FR5:</span> The system shall allow the admin to upload a digital bank passbook or
+                statement file.</li>
+            <li><span class="req">FR6:</span> The system shall contain logic to automatically compare uploaded
+                screenshot data with the submitted bank passbook.</li>
+            <li><span class="req">FR7:</span> The system shall automatically update a student's fee status to "Paid" if
+                the payment is verified against the passbook.</li>
+            <li><span class="req">FR8:</span> The system shall allow admins to manually update or add student profiles.
+            </li>
+            <li><span class="req">FR9:</span> The system shall allow teachers to mark and submit daily attendance
+                records
+                for their assigned classes.</li>
+        </ul>
+
+        <h2>5. Non-Functional Requirements</h2>
+
+        <h3>Security</h3>
+        <p>We will protect user data heavily. Admin pages will be restricted so that standard students cannot access
+            them. Passwords, if used as a backup to the QR code, will be encrypted before being saved into the database.
+        </p>
+
+        <h3>Performance</h3>
+        <p>The website should load very quickly. We want the image uploading feature to process screenshots within just
+            a few seconds so users don't get frustrated waiting for the portal to respond.</p>
+
+        <h3>Usability</h3>
+        <p>The interface will be kept extremely simple. Because the goal is to make things easier than traditional
+            methods, the buttons for uploading screenshots and passbooks should be large, clear, and obvious.</p>
+
+        <h3>Reliability</h3>
+        <p>We plan to host the database on MongoDB Atlas, a cloud platform. This means that even if our local server
+            crashes during development or testing, the student and payment records will not be lost.</p>
+
+        <h2>6. System Architecture Overview</h2>
+        <p>We are following a standard Model-View-Controller (MVC) architecture design. The "View" will be the React.js
+            frontend interface where users click buttons. The "Controller" will be the Node.js backend APIs that handle
+            the business logic, such as comparing the bank passbook to the screenshots. The "Model" will be Mongoose
+            schemas that define how our data is structured inside the MongoDB database. The frontend and backend will
+            communicate by sending JSON data back and forth over HTTP requests.</p>
+
+        <h2>7. Future Enhancements</h2>
+        <p>Since this is an academic project, we have limited time. However, if we do more work in the future, we could
+            add features like:</p>
+        <ul>
+            <li>Sending automated email alerts to parents if fees are overdue.</li>
+            <li>Generating automated financial Excel reports for the school management at the end of every month.</li>
+        </ul>
+    </div>
+
+</body>
+
+</html>
