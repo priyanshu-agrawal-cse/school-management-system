@@ -1,92 +1,27 @@
 const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
-const path = require("path");
-const methodOverride = require("method-override");
-const ejsMate = require("ejs-mate");
-const passport = require("passport");//authorijation
+const cors = require("cors");
+const passport = require("passport");
 const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
-const Classes = require("./models/classes.js");
-const School = require("./models/school.js");
-const Student = require("./models/student.js");
-const Transaction = require("./models/transaction.js");
-const session = require("express-session");
-const MongoStore = require('connect-mongo');
-const QRCode = require("qrcode");
-const Tesseract = require("tesseract.js");
-const multer = require("multer");
-const pdfParse = require("pdf-parse");
-const os = require("os");
-const Teacher = require("./models/teacher");
-const Homework = require("./models/homework");
 
-const upload = multer({ storage: multer.memoryStorage() });
-
-
-function getLocalIP() {
-  const interfaces = os.networkInterfaces();
-
-  for (let interfaceName in interfaces) {
-    for (let iface of interfaces[interfaceName]) {
-      if (iface.family === "IPv4" && !iface.internal) {
-        return iface.address;
-      }
-    }
-  }
-  return "localhost";
-}
-
-
-
-
-
-
+// ===== DATABASE =====
 const db_url = "mongodb+srv://priyanshuagrawal303_db_user:mEwSJXEuWfIM4rBJ@cluster0.twtmegh.mongodb.net/?appName=Cluster0";
-async function main() {
-  await mongoose.connect(db_url);
-};
+mongoose.connect(db_url)
+  .then(() => console.log("Database connected"))
+  .catch(err => console.error("DB Error:", err));
 
-main()
-  .then((res) => {
-    console.log("connection to database is stablished")
-  })
-  .catch(err => console.log(err));
-
-
-const cors = require("cors");
-app.use(cors({ origin: "*", credentials: true })); // Configure origin properly for production
+// ===== MIDDLEWARE =====
+app.use(cors({ origin: "*", credentials: true }));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
-
-app.use((req, res, next) => {
-
-  res.locals.currUser = req.user;
-  next();
-})
-
-// Sessions removed for JWT approach
-
-
-
+// ===== PASSPORT (stateless - no sessions) =====
 app.use(passport.initialize());
-app.use(passport.session());
 passport.use(new LocalStrategy(User.authenticate()));
-
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
-
-app.use((req, res, next) => {
-    res.locals.currentUser = req.user;
-    next();
-});
-
-
-
-
-
-
 
 // ===== ROUTES =====
 const authRoutes = require("./routes/auth");
@@ -109,7 +44,9 @@ app.use(apiPrefix + "/attendance", attendanceRoutes);
 app.use(apiPrefix + "/notice", noticeRoutes);
 app.use(apiPrefix + "/exam", examRoutes);
 
-app.listen(8080, '0.0.0.0', () => {
-    console.log("Server is running on port 8080");
-});
+// Health check
+app.get("/api/school-mgmt/health", (req, res) => res.json({ status: "ok" }));
 
+app.listen(8080, '0.0.0.0', () => {
+  console.log("School Management API running on port 8080");
+});
