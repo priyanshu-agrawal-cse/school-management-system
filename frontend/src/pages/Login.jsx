@@ -55,6 +55,7 @@ export default function Login({ setAuth }) {
               value={form.password}
               onChange={(e) => setForm({ ...form, password: e.target.value })}
               required
+              autoComplete="current-password"
             />
           </div>
           <button type="submit" className="btn btn-primary btn-full" disabled={loading}>

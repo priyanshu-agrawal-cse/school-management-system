@@ -48,7 +48,8 @@ export default function Signup({ setAuth }) {
           <div className="form-group">
             <label>Password</label>
             <input type="password" className="form-input" placeholder="Create a strong password"
-              value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} required />
+              value={form.password} onChange={(e) => setForm({ ...form, password: e.target.value })} 
+              required autoComplete="new-password" />
           </div>
           <button type="submit" className="btn btn-primary btn-full" disabled={loading}>
             {loading ? 'Creating Account...' : 'Create Account →'}
