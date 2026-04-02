@@ -5,11 +5,19 @@ import api from '../api';
 export default function Dashboard() {
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   useEffect(() => {
-    api.get('/school/dashboard').then(r => setData(r.data)).catch(() => {}).finally(() => setLoading(false));
-  }, []);
+    api.get('/school/dashboard')
+      .then(r => setData(r.data))
+      .catch(err => {
+        if (err.response?.status === 404 || err.response?.data === 'School not found' || !err.response?.data) {
+           navigate('/school/register');
+        }
+      })
+      .finally(() => setLoading(false));
+  }, [navigate]);
 
   if (loading) return <div className="page-loading">Loading dashboard...</div>;
 

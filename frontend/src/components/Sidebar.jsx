@@ -17,9 +17,10 @@ export default function Sidebar() {
     { to: '/students/add', icon: '➕', label: 'Add Student' },
     { to: '/teachers', icon: '👨‍🏫', label: 'Teachers' },
     { to: '/attendance', icon: '✅', label: 'Attendance' },
-    { to: '/attendance/report', icon: '📋', label: 'Att. Report' },
-    { to: '/fees', icon: '💰', label: 'Fees' },
-    { to: '/notices', icon: '📢', label: 'Notices' },
+    { icon: '📋', label: 'Att. Report', to: '/attendance/report' },
+    { icon: '💰', label: 'Fees', to: '/fees' },
+    { icon: '🏫', label: 'Add Class', to: '/classes/add' },
+    { icon: '📢', label: 'Notices', to: '/notices' },
     { to: '/exams', icon: '📝', label: 'Exams' },
     { to: '/account', icon: '⚙️', label: 'Account' },
   ];

@@ -15,6 +15,9 @@ import Notices from './pages/Notices';
 import Exams from './pages/Exams';
 import Account from './pages/Account';
 import SchoolRegister from './pages/SchoolRegister';
+import Teachers from './pages/Teachers';
+import AddClass from './pages/AddClass';
+import Home from './pages/Home';
 
 function PrivateRoute({ children, isAuth }) {
   return isAuth ? children : <Navigate to="/login" replace />;
@@ -31,6 +34,7 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         {/* Public Routes */}
+        <Route path="/" element={<PublicRoute isAuth={isAuth}><Home /></PublicRoute>} />
         <Route path="/login" element={<PublicRoute isAuth={isAuth}><Login setAuth={setIsAuth} /></PublicRoute>} />
         <Route path="/signup" element={<PublicRoute isAuth={isAuth}><Signup setAuth={setIsAuth} /></PublicRoute>} />
 
@@ -43,6 +47,8 @@ export default function App() {
         <Route path="/students/add" element={<PrivateRoute isAuth={isAuth}><Layout><AddStudent /></Layout></PrivateRoute>} />
         <Route path="/studentFeedetails/:id" element={<PrivateRoute isAuth={isAuth}><Layout><StudentFeeDetails /></Layout></PrivateRoute>} />
         <Route path="/fees" element={<PrivateRoute isAuth={isAuth}><Layout><Fees /></Layout></PrivateRoute>} />
+        <Route path="/classes/add" element={<PrivateRoute isAuth={isAuth}><Layout><AddClass /></Layout></PrivateRoute>} />
+        <Route path="/teachers" element={<PrivateRoute isAuth={isAuth}><Layout><Teachers /></Layout></PrivateRoute>} />
         <Route path="/attendance" element={<PrivateRoute isAuth={isAuth}><Layout><Attendance /></Layout></PrivateRoute>} />
         <Route path="/attendance/mark/:classId" element={<PrivateRoute isAuth={isAuth}><Layout><MarkAttendance /></Layout></PrivateRoute>} />
         <Route path="/attendance/report" element={<PrivateRoute isAuth={isAuth}><Layout><AttendanceReport /></Layout></PrivateRoute>} />
@@ -51,7 +57,7 @@ export default function App() {
         <Route path="/account" element={<PrivateRoute isAuth={isAuth}><Layout><Account /></Layout></PrivateRoute>} />
 
         {/* Default redirect */}
-        <Route path="*" element={<Navigate to={isAuth ? '/dashboard' : '/login'} replace />} />
+        <Route path="*" element={<Navigate to={isAuth ? '/dashboard' : '/'} replace />} />
       </Routes>
     </BrowserRouter>
   );
