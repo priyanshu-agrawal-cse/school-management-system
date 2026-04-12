@@ -28,6 +28,7 @@ export default function Signup({ setAuth }) {
   return (
     <div className="auth-bg">
       <div className="auth-card">
+        <Link to="/" className="back-home-btn">← Back to Home</Link>
         <div className="auth-logo">🏫</div>
         <h1 className="auth-title">Create Account</h1>
         <p className="auth-sub">Register your school management portal</p>

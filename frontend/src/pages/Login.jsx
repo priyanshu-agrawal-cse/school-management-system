@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import api from '../api';
 
 export default function Login({ setAuth }) {
@@ -28,6 +28,7 @@ export default function Login({ setAuth }) {
   return (
     <div className="auth-bg">
       <div className="auth-card">
+        <Link to="/" className="back-home-btn">← Back to Home</Link>
         <div className="auth-logo">🏫</div>
         <h1 className="auth-title">EduSys Pro</h1>
         <p className="auth-sub">School Management System</p>
