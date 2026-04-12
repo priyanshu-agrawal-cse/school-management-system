@@ -27,7 +27,8 @@ module.exports.addExam = async (req, res) => {
 module.exports.renderAddMarksForm = async (req, res) => {
     const exam = await Exam.findById(req.params.id).populate("classId");
     const students = await Student.find({ classId: exam.classId._id }).sort({ rollNumber: 1 });
-    res.status(200).json({ exam, students });
+    const results = await Result.find({ examId: exam._id });
+    res.status(200).json({ exam, students, results });
 };
 
 module.exports.addMarks = async (req, res) => {

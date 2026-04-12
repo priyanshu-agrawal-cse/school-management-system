@@ -8,6 +8,7 @@ export default function Students() {
   const [searchParams, setSearchParams] = useSearchParams();
   const [search, setSearch] = useState(searchParams.get('search') || '');
   const [classFilter, setClassFilter] = useState(searchParams.get('classId') || '');
+  const [qrModal, setQrModal] = useState(null);
 
   const fetchStudents = (params = {}) => {
     setLoading(true);
@@ -15,6 +16,11 @@ export default function Students() {
   };
 
   useEffect(() => { fetchStudents(); }, []);
+
+  const showQr = (s) => {
+    const url = `${api.defaults.baseURL}/student/${s._id}/qrcode.png`;
+    setQrModal({ name: s.name, url });
+  };
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -77,14 +83,30 @@ export default function Students() {
                     <td>{s.classId?.class} {s.classId?.section}</td>
                     <td><span className={`badge ${s.hostel === 'Yes' ? 'badge-green' : 'badge-gray'}`}>{s.hostel}</span></td>
                     <td>
-                      <Link to={`/student/${s._id}`} className="btn btn-sm">Profile</Link>
-                      {' '}
                       <Link to={`/studentFeedetails/${s._id}`} className="btn btn-sm btn-ghost">Fees</Link>
+                      {' '}
+                      <button className="btn btn-sm btn-ghost" onClick={() => showQr(s)}>QR</button>
                     </td>
                   </tr>
                 ))}
               </tbody>
             </table>
+          </div>
+        </div>
+      )}
+
+      {qrModal && (
+        <div className="modal-overlay" onClick={() => setQrModal(null)}>
+          <div className="modal-card glass-card" onClick={e => e.stopPropagation()}>
+            <div className="modal-header">
+              <h3>{qrModal.name}'s Portal QR</h3>
+              <button className="btn btn-icon" onClick={() => setQrModal(null)}>✕</button>
+            </div>
+            <div className="modal-body" style={{ textAlign: 'center', padding: '2rem' }}>
+              <img src={qrModal.url} alt="Student QR" style={{ width: '250px', borderRadius: '1rem', border: '5px solid white' }} />
+              <p style={{ marginTop: '1rem', color: 'var(--text-muted)' }}>Students can scan this to view their fee status and homework.</p>
+              <a href={qrModal.url} download={`${qrModal.name}_qr.png`} className="btn btn-primary btn-full" style={{ marginTop: '1.5rem' }}>Download QR Code</a>
+            </div>
           </div>
         </div>
       )}

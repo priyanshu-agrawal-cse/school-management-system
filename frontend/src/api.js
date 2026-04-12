@@ -1,6 +1,8 @@
 import axios from 'axios';
 
-export const API_URL = 'https://aivants.backendbots.com/api100b';
+// Reads from VITE_API_URL env variable (set in Vercel dashboard or .env.production)
+// Fallback to localhost for local development
+export const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8080/api100b';
 
 const api = axios.create({ baseURL: API_URL });
 

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import api from '../api';
 
-export default function SchoolRegister() {
+export default function SchoolRegister({ setHasSchool }) {
   const [rows, setRows] = useState([{ class: '', section: '', acadmicFee: '' }]);
   const [form, setForm] = useState({ name: '', phoneNumber: '', upiId: '', hostelFee: '' });
   const [saving, setSaving] = useState(false);
@@ -22,6 +22,7 @@ export default function SchoolRegister() {
         acadmicFee: rows.map(r => r.acadmicFee),
       };
       await api.post('/school/schoolRegistration', { ...form, classId });
+      if (setHasSchool) setHasSchool(true);
       navigate('/dashboard');
     } catch {
       alert('Failed to register school');

@@ -2,6 +2,7 @@ const Student = require("../models/student");
 const School = require("../models/school");
 const Homework = require("../models/homework");
 const Transaction = require("../models/transaction");
+const Attendance = require("../models/attendance");
 const QRCode = require("qrcode");
 const { getLocalIP } = require("../utils/network");
 
@@ -75,7 +76,7 @@ module.exports.renderQRCode = async (req, res) => {
     try {
         const studentId = req.params.id;
         const localIP = getLocalIP();
-        const targetUrl = `http://${localIP}:8080/studentFeedetails/${studentId}`;
+        const targetUrl = `http://${localIP}:5173/studentFeedetails/${studentId}`;
         const qrBuffer = await QRCode.toBuffer(targetUrl, { type: "png", width: 300, errorCorrectionLevel: "H" });
         res.type("png");
         res.send(qrBuffer);
@@ -93,7 +94,8 @@ module.exports.renderFeeDetails = async (req, res) => {
         const school = await School.findOne({ classId: student.classId._id });
         const transaction = await Transaction.find({ studentId: student._id });
         const homeworks = await Homework.find({ classId: student.classId._id }).populate("teacherId").sort({ createdAt: -1 });
-        res.status(200).json({ student, school, transaction, homeworks });
+        const attendances = await Attendance.find({ studentId: student._id }).sort({ date: -1 });
+        res.status(200).json({ student, school, transaction, homeworks, attendances });
     } catch (err) {
         console.error(err);
         res.status(500).send("Server error");

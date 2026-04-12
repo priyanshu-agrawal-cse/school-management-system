@@ -91,7 +91,7 @@ export default function Exams() {
                     <td><strong>{ex.name}</strong></td>
                     <td>{ex.classId?.class} - {ex.classId?.section}</td>
                     <td>{new Date(ex.date).toLocaleDateString('en-IN')}</td>
-                    <td><Link to={`/exam/${ex._id}/marks`} className="btn btn-sm">Add Marks</Link></td>
+                    <td><Link to={`/exam/${ex._id}/marks`} className="btn btn-sm">View Marks</Link></td>
                   </tr>
                 ))}
               </tbody>

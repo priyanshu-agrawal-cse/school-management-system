@@ -12,6 +12,8 @@ router.get("/dashboard", isLoggedIn, schoolController.renderDashboard);
 router.get("/account", isLoggedIn, schoolController.renderAccount);
 router.post("/save-upi-details", isLoggedIn, schoolController.updateUpi);
 
+router.get("/registration-status", isLoggedIn, schoolController.getRegistrationStatus);
+
 router.route("/classes/add")
     .get(isLoggedIn, schoolController.renderAddClassesForm)
     .post(isLoggedIn, schoolController.addClasses);

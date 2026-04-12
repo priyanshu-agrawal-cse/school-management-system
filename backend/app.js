@@ -7,13 +7,28 @@ const LocalStrategy = require("passport-local");
 const User = require("./models/user.js");
 
 // ===== DATABASE =====
-const db_url = "mongodb+srv://priyanshuagrawal303_db_user:mEwSJXEuWfIM4rBJ@cluster0.twtmegh.mongodb.net/?appName=Cluster0";
+const db_url = process.env.MONGO_URL || "mongodb+srv://priyanshuagrawal303_db_user:mEwSJXEuWfIM4rBJ@cluster0.twtmegh.mongodb.net/?appName=Cluster0";
 mongoose.connect(db_url)
   .then(() => console.log("Database connected"))
   .catch(err => console.error("DB Error:", err));
 
 // ===== MIDDLEWARE =====
-app.use(cors({ origin: "*", credentials: true }));
+const allowedOrigins = [
+  "http://localhost:5173",
+  "http://localhost:3000",
+  process.env.FRONTEND_URL || "https://school-management-system-khaki-nine.vercel.app",
+];
+
+app.use(cors({
+  origin: (origin, callback) => {
+    // allow requests with no origin (mobile apps, curl, Postman)
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.includes(origin)) return callback(null, true);
+    callback(new Error(`CORS: origin ${origin} not allowed`));
+  },
+  credentials: true,
+}));
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
@@ -47,6 +62,7 @@ app.use(apiPrefix + "/exam", examRoutes);
 // Health check
 app.get("/api100b/health", (req, res) => res.json({ status: "ok" }));
 
-app.listen(8080, '0.0.0.0', () => {
-  console.log("School Management API running on port 8080");
+const PORT = process.env.PORT || 8080;
+app.listen(PORT, '0.0.0.0', () => {
+  console.log(`School Management API running on port ${PORT}`);
 });
