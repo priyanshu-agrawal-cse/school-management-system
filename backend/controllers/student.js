@@ -4,7 +4,6 @@ const Homework = require("../models/homework");
 const Transaction = require("../models/transaction");
 const Attendance = require("../models/attendance");
 const QRCode = require("qrcode");
-const { getLocalIP } = require("../utils/network");
 
 module.exports.renderAddForm = async (req, res) => {
     try {
@@ -75,8 +74,8 @@ module.exports.renderProfile = async (req, res) => {
 module.exports.renderQRCode = async (req, res) => {
     try {
         const studentId = req.params.id;
-        const localIP = getLocalIP();
-        const targetUrl = `http://${localIP}:5173/studentFeedetails/${studentId}`;
+        const frontendUrl = process.env.FRONTEND_URL || 'http://localhost:5173';
+        const targetUrl = `${frontendUrl}/studentFeedetails/${studentId}`;
         const qrBuffer = await QRCode.toBuffer(targetUrl, { type: "png", width: 300, errorCorrectionLevel: "H" });
         res.type("png");
         res.send(qrBuffer);
