@@ -1,9 +1,11 @@
 import { Link } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { API_URL } from '../api';
 import './Home.css';
 
 export default function Home() {
   const [isScrolled, setIsScrolled] = useState(false);
+  const [serverStatus, setServerStatus] = useState('waking'); // 'waking' | 'ready' | 'hidden'
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 20);
@@ -11,8 +13,32 @@ export default function Home() {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
+  // Silent wake-up ping — fires immediately on homepage load
+  // so Render's free-tier backend is warm before user hits Login
+  useEffect(() => {
+    const baseUrl = API_URL.replace('/api100b', '');
+    fetch(`${baseUrl}/api100b/health`, { method: 'GET' })
+      .then(r => r.ok ? setServerStatus('ready') : setServerStatus('hidden'))
+      .catch(() => setServerStatus('hidden'));
+
+    // Hide the toast after 4s regardless
+    const timer = setTimeout(() => setServerStatus('hidden'), 4000);
+    return () => clearTimeout(timer);
+  }, []);
+
+
   return (
     <div className="home-page">
+      {/* SERVER WAKE-UP TOAST */}
+      {serverStatus !== 'hidden' && (
+        <div className={`server-toast ${serverStatus === 'ready' ? 'server-toast--ready' : ''}`}>
+          {serverStatus === 'waking'
+            ? <><span className="toast-dot toast-dot--pulse" />Warming up server…</>
+            : <><span className="toast-dot toast-dot--green" />Server ready ✓</>
+          }
+        </div>
+      )}
+
       {/* NAVBAR */}
       <nav className={`home-nav ${isScrolled ? 'scrolled' : ''}`}>
         <Link to="/" className="nav-brand">
